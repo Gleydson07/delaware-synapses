@@ -1,5 +1,5 @@
-import { storageKeys } from "./config";
-import { HttpMethodsProps } from "./types";
+import { redirect } from "next/navigation";
+import { HttpMethodsProps, storageKeys } from "../../utils/config";
 
 export const fetchAPISysnapses = async (
   method: HttpMethodsProps,
@@ -27,6 +27,11 @@ export const fetchAPISysnapses = async (
         "Authorization": `Bearer ${token}`,
       },
     });
+
+    console.log(response);
+    if (response.status === 401) {
+      redirect("/login");
+    }
 
     return await response.json();
   } catch (error: any) {

@@ -1,6 +1,5 @@
-import { httpMethods } from "./clients/config";
+import { HttpMethodsProps, httpMethods } from "../utils/config";
 import { fetchAPISysnapses } from "./clients/sysnapsesService";
-import { HttpMethodsProps } from "./clients/types";
 import { fetchAPIWorflow } from "./clients/workflowService";
 
 type StatusProps = {

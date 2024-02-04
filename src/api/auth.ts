@@ -1,4 +1,4 @@
-import { storageKeys } from "@/api/clients/config";
+import { storageKeys } from "@/utils/config";
 
 // AUTH LOGIN
 export async function loginRedirect() {

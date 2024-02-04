@@ -1,6 +1,5 @@
-import { httpMethods } from "../clients/config";
-import { fetchAPISysnapses } from "../clients/sysnapsesService";
-import { HttpMethodsProps } from "../clients/types";
+import { HttpMethodsProps, httpMethods } from "../utils/config";
+import { fetchAPISysnapses } from "./clients/sysnapsesService";
 
 export async function getProjects() {
   try {

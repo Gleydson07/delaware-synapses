@@ -1,6 +1,5 @@
-import { httpMethods } from "./clients/config";
+import { HttpMethodsProps, httpMethods } from "../utils/config";
 import { fetchAPISysnapses } from "./clients/sysnapsesService";
-import { HttpMethodsProps } from "./clients/types";
 
 export type PhaseProps = {
   almId: string;
