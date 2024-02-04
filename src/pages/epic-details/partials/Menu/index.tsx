@@ -157,7 +157,7 @@ export default function Menu({ token, phases, epics }: MenuProps) {
         <div className="header-wrapper">
           <Wrapper>
             <Card
-              link={`/control-center/${decript.project}`}
+              // link={`/control-center/${decript.project}`}
               title="Control Center"
               text="Back to Dashboard"
               icon={iconPast}

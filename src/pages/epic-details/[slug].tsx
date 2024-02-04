@@ -11,9 +11,9 @@ import Wrapper from "@/components/Wrapper";
 import ErrorPage from "@/components/PageError";
 
 export default function EpicDetails() {
-  const [ phases, setPhases ] = useState<PhaseProps[]>([]);
-  const [ epics, setEpics ] = useState<EpicProps[]>([]);
-  const [ isLoading, setIsLoading ] = useState(false);
+  const [phases, setPhases] = useState<PhaseProps[]>([]);
+  const [epics, setEpics] = useState<EpicProps[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const params = useParams();
   const router = useRouter();
@@ -59,30 +59,14 @@ export default function EpicDetails() {
     fetchData();
   }, [slug]);
 
-  if (isLoading) {
-    return (
-      <>
-        <Header />
-        <Loading/>
-      </>
-    )
-  }
+  if (isLoading) return <Loading />;
 
-  if (!phases || !phases.length) {
+  if (!phases || (!phases.length && !isLoading))
     return (
-      <>
-        <Header />
-        <Wrapper>
-          <ErrorPage />
-        </Wrapper>
-      </>
-    )
-  }
+      <Wrapper>
+        <ErrorPage />
+      </Wrapper>
+    );
 
-  return (
-    <>
-      <Header title="Epic Details" />
-      <Menu token={slug} phases={phases} epics={epics} />
-    </>
-  );
+  return <Menu token={slug} phases={phases} epics={epics} />
 }

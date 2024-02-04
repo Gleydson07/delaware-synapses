@@ -38,7 +38,7 @@ export default function Header() {
       <HeaderAvatar $isVisible={isLogoutVisible}>
         <button onClick={handleIsActiveLogout} className="header-btn">
           <figure>
-            <Image src={iconUser} alt="icone de usuario" />
+            <Image src={iconUser} alt="icone de usuario" width={55} />
           </figure>
         </button>
 

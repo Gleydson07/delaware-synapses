@@ -13,17 +13,15 @@ interface CardProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 export default function Card({ title, text, icon, onClick }: CardProps) {
 
   return (
-    <div onClick={onClick}>
-      <CardContainer>
-        <div className="card-content">
-          <h2 className="card-title">{title}</h2>
-          {text && <p className="card-text">{text}</p>}
-        </div>
+    <CardContainer onClick={onClick}>
+      <div className="card-content">
+        <h2 className="card-title">{title}</h2>
+        {text && <p className="card-text">{text}</p>}
+      </div>
 
-        <figure>
-          <Image src={icon ? icon : IconProject} alt="icone de projetos" />
-        </figure>
-      </CardContainer>
-    </div>
+      <figure>
+        <Image src={icon ? icon : IconProject} alt="icone de projetos" />
+      </figure>
+    </CardContainer>
   )
 }
