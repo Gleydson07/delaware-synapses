@@ -6,13 +6,11 @@ import { AnchorHTMLAttributes } from "react"
 interface CardProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   title: string,
   text?: string,
-  link: string
   icon?: string
-  headerTitle?: string,
   onClick?: () => void
 }
 
-export default function Card({ title, link, text, icon, onClick }: CardProps) {
+export default function Card({ title, text, icon, onClick }: CardProps) {
 
   return (
     <div onClick={onClick}>

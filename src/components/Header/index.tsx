@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HeaderAvatar, HeaderContainer } from "./styles";
 import Image from "next/image";
 
@@ -7,11 +7,11 @@ import iconUser from "@/assets/icons/icon-user.svg";
 import logout from "@/assets/icons/logout.svg";
 import { useRouter } from "next/navigation";
 import { signOut } from "@/api/auth";
-import useTitleHeader from "@/hooks/useHeader";
+import { useTitleHeader } from "@/hooks/useHeader";
 
 export default function Header() {
   const router = useRouter();
-  const { projectName } = useTitleHeader()
+  const { projectName } = useTitleHeader();
 
   const [isLogoutVisible, SetIslogoutVisible] = useState(false);
 

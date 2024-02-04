@@ -5,7 +5,8 @@ import Card from "@/components/Card";
 import { getProjects } from "@/api/projects";
 import { useEffect, useState } from "react";
 import Loading from "@/components/Loading";
-import useTitleHeader from "@/hooks/useHeader";
+import { useRouter } from "next/navigation";
+import { useTitleHeader } from "@/hooks/useHeader";
 
 type ProjectProps = {
   projectId: number;
@@ -23,9 +24,10 @@ type ClientProps = {
 };
 
 export default function Home() {
+  const router = useRouter();
   const [projects, setProjects] = useState<ClientProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { updateProjectName } = useTitleHeader();
+  const { updateProjectName, clearProjectName } = useTitleHeader();
 
   const loadProjects = async () => {
     setIsLoading(true);
@@ -34,7 +36,13 @@ export default function Home() {
     setProjects(data);
   };
 
+  const handleChangeProject = (name: string, uuid: string) => {
+    updateProjectName(name);
+    router.push(`/control-center/${uuid}`)
+  };
+
   useEffect(() => {
+    clearProjectName();
     loadProjects();
   }, []);
 
@@ -56,10 +64,6 @@ export default function Home() {
     );
   }
 
-  const handleTeste = (value: string) => {
-    updateProjectName(value);
-  };
-
   return (
     <>
       <Wrapper>
@@ -72,10 +76,11 @@ export default function Home() {
                   (list) =>
                     list.isActive && (
                       <Card
-                        onClick={() => handleTeste(list.name)}
+                        onClick={() => handleChangeProject(
+                          `${project.name} - ${list.name}`,
+                          list.projectUuid
+                        )}
                         key={list.projectUuid}
-                        headerTitle={`${project.name} - ${list.name}`}
-                        link={`/control-center/${list.projectUuid}`}
                         title={list.name}
                       />
                     )

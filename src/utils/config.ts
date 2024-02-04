@@ -1,7 +1,7 @@
 type StorageKeysProps = {
   accessToken: string;
   microsoftCode: string;
-  projectTitle: string;
+  projectName: string;
 }
 
 export type HttpMethodsProps = 'GET' | 'POST';
@@ -9,7 +9,7 @@ export type HttpMethodsProps = 'GET' | 'POST';
 export const storageKeys: StorageKeysProps = {
   accessToken: "access_token",
   microsoftCode: "auth_code",
-  projectTitle: "project_title",
+  projectName: "project_name",
 }
 
 export const httpMethods = {

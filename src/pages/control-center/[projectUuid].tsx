@@ -12,13 +12,10 @@ import Loading from "@/components/Loading";
 import ErrorPage from "@/components/PageError";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
-import useTitleHeader from "@/hooks/useHeader";
 
 export default function ControlCenter() {
   const params = useParams();
   const router = useRouter();
-  const { projectName } = useTitleHeader()
-  console.log(projectName);
 
   const [isLoading, setIsLoading] = useState(true);
   const [phases, setPhases] = useState<PhaseProps[]>([]);
@@ -77,6 +74,10 @@ export default function ControlCenter() {
     router.push(`/epic-details/${routeParams}`);
   }
 
+  const handleGoToBack = () => {
+    router.push("/home");
+  }
+
   const renderGroupedProgressBars = (epics: any) => {
     const totalItems = epics.length;
     const groupedProgressBars: any = [[], [], []];
@@ -132,7 +133,7 @@ export default function ControlCenter() {
     <>
       <Wrapper>
         <Card
-          link={"/home"}
+          onClick={handleGoToBack}
           title="Projects"
           text="From clients list"
           icon={iconPast}
