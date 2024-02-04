@@ -1,4 +1,4 @@
-import { HttpMethodsProps } from "./types";
+import { HttpMethodsProps } from "@/utils/config";
 
 export const fetchAPIWorflow = async (method: HttpMethodsProps, path: string, body?: any) => {
   const apiKey = process.env.WORKFLOW_API_KEY || '';

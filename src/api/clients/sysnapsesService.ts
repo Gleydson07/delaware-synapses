@@ -1,5 +1,4 @@
-import { storageKeys } from "./config";
-import { HttpMethodsProps } from "./types";
+import { HttpMethodsProps, storageKeys } from "../../utils/config";
 
 export const fetchAPISysnapses = async (
   method: HttpMethodsProps,
@@ -26,6 +25,11 @@ export const fetchAPISysnapses = async (
         "Authorization": `Bearer ${token}`,
       },
     });
+
+    if ([401, 500].includes(response.status)) {
+      localStorage.removeItem(storageKeys.accessToken);
+      window.location.href = "/login";
+    }
 
     return await response.json();
   } catch (error: any) {
