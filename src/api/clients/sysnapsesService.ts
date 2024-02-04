@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { HttpMethodsProps, storageKeys } from "../../utils/config";
 
 export const fetchAPISysnapses = async (
@@ -17,9 +16,8 @@ export const fetchAPISysnapses = async (
       });
     }
 
-    // debugger
     const response = await fetch(url, {
-      method: "GET",
+      method: method,
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
@@ -28,9 +26,10 @@ export const fetchAPISysnapses = async (
       },
     });
 
-    console.log(response);
-    if (response.status === 401) {
-      redirect("/login");
+    if ([401, 500].includes(response.status)) {
+      console.log('response', response);
+      localStorage.removeItem(storageKeys.accessToken);
+      window.location.href = "/login";
     }
 
     return await response.json();

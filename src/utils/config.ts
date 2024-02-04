@@ -6,7 +6,6 @@ type StorageKeysProps = {
 
 export type HttpMethodsProps = 'GET' | 'POST';
 
-
 export const storageKeys: StorageKeysProps = {
   accessToken: "access_token",
   microsoftCode: "auth_code",
