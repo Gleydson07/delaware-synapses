@@ -27,7 +27,6 @@ export const fetchAPISysnapses = async (
     });
 
     if ([401, 500].includes(response.status)) {
-      console.log('response', response);
       localStorage.removeItem(storageKeys.accessToken);
       window.location.href = "/login";
     }
