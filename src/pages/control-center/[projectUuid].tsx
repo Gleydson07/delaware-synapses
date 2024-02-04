@@ -1,5 +1,4 @@
 import Card from "@/components/Card";
-import Header from "@/components/Header";
 import Wrapper from "@/components/Wrapper";
 import iconPast from "@/assets/icons/cc-project.svg";
 import CardProgress from "@/components/CardProgress";
@@ -13,10 +12,13 @@ import Loading from "@/components/Loading";
 import ErrorPage from "@/components/PageError";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
+import useTitleHeader from "@/hooks/useHeader";
 
 export default function ControlCenter() {
   const params = useParams();
   const router = useRouter();
+  const { projectName } = useTitleHeader()
+  console.log(projectName);
 
   const [isLoading, setIsLoading] = useState(true);
   const [phases, setPhases] = useState<PhaseProps[]>([]);
@@ -111,8 +113,7 @@ export default function ControlCenter() {
   if (isLoading) {
     return (
       <>
-        <Header />
-        <Loading/>
+        <Loading />
       </>
     )
   }
@@ -120,7 +121,6 @@ export default function ControlCenter() {
   if (!phases || !phases.length) {
     return (
       <>
-        <Header />
         <Wrapper>
           <ErrorPage />
         </Wrapper>
@@ -130,7 +130,6 @@ export default function ControlCenter() {
 
   return (
     <>
-      <Header title="Control Center" />
       <Wrapper>
         <Card
           link={"/home"}

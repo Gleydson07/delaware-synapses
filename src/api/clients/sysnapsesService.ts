@@ -17,9 +17,8 @@ export const fetchAPISysnapses = async (
       });
     }
 
-    // debugger
     const response = await fetch(url, {
-      method: "GET",
+      method: method,
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",

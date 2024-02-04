@@ -6,16 +6,12 @@ import logo from "@/assets/imgs/delaware.png";
 import iconUser from "@/assets/icons/icon-user.svg";
 import logout from "@/assets/icons/logout.svg";
 import { useRouter } from "next/navigation";
-import { useTextHeader } from "@/hooks/useContextHeader";
 import { signOut } from "@/api/auth";
+import useTitleHeader from "@/hooks/useHeader";
 
-interface HeaderProps {
-  title?: string;
-}
-
-export default function Header({ title }: HeaderProps) {
+export default function Header() {
   const router = useRouter();
-  const { textHeader } = useTextHeader();
+  const { projectName } = useTitleHeader()
 
   const [isLogoutVisible, SetIslogoutVisible] = useState(false);
 
@@ -31,12 +27,12 @@ export default function Header({ title }: HeaderProps) {
   return (
     <HeaderContainer>
       <figure className="header-logo">
-        <Image src={logo} alt="logo marca" />
+        <Image src={logo} alt="logo marca" width={250} />
       </figure>
 
       <div className="header-content">
-        {title && <h2>{title}</h2>}
-        {textHeader && <p>{textHeader}</p>}
+        {projectName && <h2>Control Center</h2>}
+        {projectName && <p>{projectName}</p>}
       </div>
 
       <HeaderAvatar $isVisible={isLogoutVisible}>

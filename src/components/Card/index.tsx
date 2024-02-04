@@ -1,10 +1,7 @@
 import Image from "next/image"
-import Link from "next/link"
-
 import IconProject from "@/assets/icons/project.svg"
 import { CardContainer } from "./styles"
 import { AnchorHTMLAttributes } from "react"
-import { useTextHeader } from "@/hooks/useContextHeader"
 
 interface CardProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   title: string,
@@ -12,13 +9,13 @@ interface CardProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   link: string
   icon?: string
   headerTitle?: string,
+  onClick?: () => void
 }
 
-export default function Card({ title, link, text, icon, headerTitle }: CardProps) {
-  const { setTextHeader, textHeader } = useTextHeader();
+export default function Card({ title, link, text, icon, onClick }: CardProps) {
 
   return (
-    <Link href={link} onClick={() => setTextHeader(headerTitle ? headerTitle : textHeader)}>
+    <div onClick={onClick}>
       <CardContainer>
         <div className="card-content">
           <h2 className="card-title">{title}</h2>
@@ -29,6 +26,6 @@ export default function Card({ title, link, text, icon, headerTitle }: CardProps
           <Image src={icon ? icon : IconProject} alt="icone de projetos" />
         </figure>
       </CardContainer>
-    </Link>
+    </div>
   )
 }
