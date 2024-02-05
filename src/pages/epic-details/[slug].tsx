@@ -1,6 +1,5 @@
 import { EpicProps, findEpicsByFaseIdAndProjectId } from "@/api/epic";
 import { PhaseProps, findPhasesByProjectId } from "@/api/phases";
-import Header from "@/components/Header";
 import { cryptography } from "@/utils/cryptography";
 import Menu from "./partials/Menu";
 import { useEffect, useState } from "react";
@@ -21,12 +20,12 @@ export default function EpicDetails() {
 
   let decript = {} as any;
   if (slug) {
-    decript = JSON.parse(cryptography.decript(slug));
+    decript = cryptography.decrypt(slug);
   }
 
   const fetchData = async () => {
     setIsLoading(true);
-    const responsePhases = await findPhasesByProjectId(decript.project);
+    const responsePhases = await findPhasesByProjectId(decript.uuid);
 
     if (responsePhases && responsePhases.length) {
       setPhases(responsePhases);
@@ -34,7 +33,7 @@ export default function EpicDetails() {
       const epicPromises = responsePhases.map(async (phase) => {
         const epics = await findEpicsByFaseIdAndProjectId(
           phase.phaseId,
-          decript.project
+          decript.uuid
         );
         return epics;
       });
@@ -57,7 +56,7 @@ export default function EpicDetails() {
     }
 
     fetchData();
-  }, [slug]);
+  }, []);
 
   if (isLoading) return <Loading />;
 

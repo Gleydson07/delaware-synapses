@@ -13,7 +13,8 @@ import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import { findFeaturesByFaseIdAndProjectId } from "@/api/feature";
 import { fetchUserStoriesData } from "@/api/userHistory";
-import { findTasksByStoryIdAndProjectId } from "@/api/tasks";
+import { findTasksByStoryIdAndProjectId, runWorkflow } from "@/api/tasks";
+import { runWorkFlow } from "@/api/workflow";
 
 interface FeatureProps {
   token: any;
@@ -53,7 +54,7 @@ const iconFeatureStatus = (color: string) => (
 );
 
 export default function Feature({ token, currentEpic }: FeatureProps) {
-  const decript = JSON.parse(cryptography.decript(token));
+  const decript = cryptography.decrypt(token);
 
   let allFeatures: any;
   let allUsers: any;
@@ -66,7 +67,7 @@ export default function Feature({ token, currentEpic }: FeatureProps) {
   const getFeaturesForAllEpics = async () => {
     const responseFeatures = await findFeaturesByFaseIdAndProjectId(
       currentEpic.epicId,
-      decript.project
+      decript.uuid
     );
 
     return responseFeatures;
@@ -75,7 +76,7 @@ export default function Feature({ token, currentEpic }: FeatureProps) {
   const getUserStorysForAllFeature = async (featureId: number) => {
     const responseUserStories = await fetchUserStoriesData(
       featureId,
-      decript.project
+      decript.uuid
     );
 
     return responseUserStories;
@@ -84,7 +85,7 @@ export default function Feature({ token, currentEpic }: FeatureProps) {
   const getTasksForAllUser = async (userStoryId: number) => {
     const responseTasks = await findTasksByStoryIdAndProjectId(
       userStoryId,
-      decript.project
+      decript.uuid
     );
 
     return responseTasks;
@@ -121,22 +122,13 @@ export default function Feature({ token, currentEpic }: FeatureProps) {
     }
   };
 
-  const handleStartWorkflow = (userStoryId: string) => {
-    // try {
+  const handleStartWorkflow = async (userStoryId: string) => {
+    const dataWork = {
+      "userStoryId": 3, //userStoryId,
+      "environmentId": 1
+    };
 
-    //   const dataWork =
-    //   {
-    //     "userStoryId": 3, //userStoryId,
-    //     "environmentId": 1
-    //   };
-
-    //   await runWorkflow(dataWork);
-
-    // } catch (error) {
-    //   console.error("API request failed:", error);
-    //   setError("Error fetching data. Please try again.");
-    //   dispatch(updateLoadingOpen(false));
-    // }
+    await runWorkFlow(dataWork);
   }
 
   useEffect(() => {
@@ -198,7 +190,10 @@ export default function Feature({ token, currentEpic }: FeatureProps) {
                       <Accordion
                         key={user.almId}
                         items={[{ title: user.title, content: userTasks }]}
+                        featureId={feature.featureId}
+                        userId={user.userStoryId}
                         status={user.status.id}
+                        hasWorkFlow={user.hasWorkFlow}
                         handleClick={() => handleStartWorkflow(user.userStoryId)}
                       />
                     );

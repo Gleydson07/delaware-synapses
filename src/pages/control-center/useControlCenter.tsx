@@ -57,16 +57,17 @@ export const useControlCenter = () => {
   };
 
   const handleNavigateToPhase = (phase: PhaseProps) => {
-    const routeParams = cryptography.encript({
-      project: projectUuid,
+    const routeParams = cryptography.encrypt({
+      uuid: projectUuid,
       phaseId: phase.phaseId,
+      epicId: 0,
     });
     router.push(`/epic-details/${routeParams}`);
   };
 
   const handleNavigateToEpic = (epic: EpicProps) => {
-    const routeParams = cryptography.encript({
-      project: projectUuid,
+    const routeParams = cryptography.encrypt({
+      uuid: projectUuid,
       phaseId: epic.phaseId,
       epicId: epic.epicId,
     });

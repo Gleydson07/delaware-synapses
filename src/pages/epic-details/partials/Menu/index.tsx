@@ -9,6 +9,7 @@ import { cryptography } from "@/utils/cryptography";
 import CardProgress from "@/components/CardProgress";
 import { useEffect, useState } from "react";
 import Feature from "../Feature";
+import { useRouter } from "next/router";
 
 interface MenuProps {
   token: string,
@@ -17,7 +18,8 @@ interface MenuProps {
 }
 
 export default function Menu({ token, phases, epics }: MenuProps) {
-  const decript = JSON.parse(cryptography.decript(token));
+  const router = useRouter();
+  const decript = cryptography.decrypt(token);
 
   const phaseFindName = phases.find((phase: any) => phase.phaseId === decript.phaseId);
 
@@ -38,22 +40,25 @@ export default function Menu({ token, phases, epics }: MenuProps) {
   const epicFindrelatePhase = epics.filter((epic: any) => epic.phaseId === phaseFilter?.phaseId);
 
   const handleSwitchPhase = (phase: any) => {
-    cryptography.encript({
-      project: decript.project,
+    const newHash = cryptography.encrypt({
+      uuid: decript.uuid,
       phaseId: phase.phaseId,
+      epicId: 0,
     });
 
-    setPhaseName(phase.name);
+    setPhaseName(phase.title);
+    router.push(`${newHash}`);
   }
 
   const handleSwitchEpic = (epic: any) => {
-    cryptography.encript({
-      project: decript.project,
+    const newHash = cryptography.encrypt({
+      uuid: decript.uuid,
       phaseId: epic.phaseId,
       epicId: epic.epicId,
     });
 
     setPhaseName("prepare");
+    router.push(`${newHash}`);
   }
 
   const renderPhaseView = () => {
@@ -157,7 +162,7 @@ export default function Menu({ token, phases, epics }: MenuProps) {
         <div className="header-wrapper">
           <Wrapper>
             <Card
-              // link={`/control-center/${decript.project}`}
+              // link={`/control-center/${decript.uuid}`}
               title="Control Center"
               text="Back to Dashboard"
               icon={iconPast}

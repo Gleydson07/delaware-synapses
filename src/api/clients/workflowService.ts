@@ -1,8 +1,8 @@
 import { HttpMethodsProps } from "@/utils/config";
 
 export const fetchAPIWorflow = async (method: HttpMethodsProps, path: string, body?: any) => {
-  const apiKey = process.env.WORKFLOW_API_KEY || '';
-  const baseURL = process.env.BASE_URL_WORKFLOW || '';
+  const apiKey = process.env.NEXT_PUBLIC_WORKFLOW_API_KEY || '';
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL_WORKFLOW || '';
   const url = new URL(path, baseURL);
 
   const response = await fetch(url, {
