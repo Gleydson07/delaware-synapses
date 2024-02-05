@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { loginRedirect } from "@/api/auth";
 import { useTitleHeader } from "@/hooks/useHeader";
 import { useEffect } from "react";
+import { storageKeys } from "@/utils/config";
 
 export default function Login() {
   const { clearProjectName } = useTitleHeader();
@@ -17,6 +18,11 @@ export default function Login() {
 
   useEffect(() => {
     clearProjectName();
+
+    const token = localStorage.getItem(storageKeys.accessToken);
+    if (token) {
+      router.push("/home");
+    }
   }, []);
 
   return (

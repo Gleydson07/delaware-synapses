@@ -21,23 +21,20 @@ export default function Menu({ token, phases, epics }: MenuProps) {
   const router = useRouter();
   const decript = cryptography.decrypt(token);
 
-  const phaseFindName = phases.find((phase: any) => phase.phaseId === decript.phaseId);
+  const findPhase = phases.find((phase: any) => phase.phaseId === decript.phaseId);
+  const phaseTitle = findPhase.title;
 
-  const [phaseName, setPhaseName] = useState<string>(phaseFindName.name);
-
-  const phaseFilter = phases.find((phase: any) => phase.title === phaseName);
+  const [phaseId, setPhaseId] = useState<string>(findPhase.phaseId);
   let epicFilter: any;
 
   if (decript.epicId) {
     epicFilter = epics.find((epic: any) => epic.epicId === decript.epicId);
-  } else if (phaseFilter?.phaseId) {
-    epicFilter = epics.find((epic: any) => epic.phaseId === phaseFilter.phaseId);
+  } else if (findPhase?.phaseId) {
+    epicFilter = epics.find((epic: any) => epic.phaseId === findPhase.phaseId);
   }
 
   const [currentEpic, setcurrentEpic] = useState<any>(epicFilter);
-
-  const phaseTitle = phaseFilter.title
-  const epicFindrelatePhase = epics.filter((epic: any) => epic.phaseId === phaseFilter?.phaseId);
+  const epicFindrelatePhase = epics.filter((epic: any) => epic.phaseId === findPhase?.phaseId);
 
   const handleSwitchPhase = (phase: any) => {
     const newHash = cryptography.encrypt({
@@ -46,7 +43,7 @@ export default function Menu({ token, phases, epics }: MenuProps) {
       epicId: 0,
     });
 
-    setPhaseName(phase.title);
+    setPhaseId(phase.phaseId);
     router.push(`${newHash}`);
   }
 
@@ -57,27 +54,27 @@ export default function Menu({ token, phases, epics }: MenuProps) {
       epicId: epic.epicId,
     });
 
-    setPhaseName("prepare");
+    setPhaseId("Explore");
     router.push(`${newHash}`);
   }
 
   const renderPhaseView = () => {
-    if (phaseFilter) {
+    if (findPhase) {
       return (
         <>
           <DropDownCards
             isDropDown={phases.length > 1}
-            projectName={phaseName}
-            title={phaseName}
+            projectName={findPhase.name}
+            title={findPhase.name}
           >
             {renderPhaseDropdown()}
           </DropDownCards>
 
           <CardProgress
-            completeWork={phaseFilter.completeWork}
-            percentComplete={phaseFilter.percentComplete}
-            name={phaseFilter.name}
-            totalWork={phaseFilter.totalWork}
+            completeWork={findPhase.completeWork}
+            percentComplete={findPhase.percentComplete}
+            name={findPhase.name}
+            totalWork={findPhase.totalWork}
           />
         </>
       )
@@ -87,7 +84,7 @@ export default function Menu({ token, phases, epics }: MenuProps) {
 
   const renderPhaseDropdown = () => {
     return phases.map((phase: any) => {
-      if (phase.name !== phaseName) {
+      if (phase.name !== findPhase.name) {
         return (
           <CardProgress
             onClick={() => handleSwitchPhase(phase)}
@@ -154,7 +151,7 @@ export default function Menu({ token, phases, epics }: MenuProps) {
 
   useEffect(() => {
     setcurrentEpic(epicFilter)
-  }, [phaseName]);
+  }, [phaseId]);
 
   return (
     <>

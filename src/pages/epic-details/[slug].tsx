@@ -18,12 +18,7 @@ export default function EpicDetails() {
   const router = useRouter();
   const slug = params?.slug as string;
 
-  let decript = {} as any;
-  if (slug) {
-    decript = cryptography.decrypt(slug);
-  }
-
-  const fetchData = async () => {
+  const fetchData = async (decript: any) => {
     setIsLoading(true);
     const responsePhases = await findPhasesByProjectId(decript.uuid);
 
@@ -50,12 +45,15 @@ export default function EpicDetails() {
   };
 
   useEffect(() => {
-    if (!!slug && typeof slug !== "string") {
-      router.push("/home");
-      return;
-    }
+    if (!!slug) {
+      const decrypt = slug && cryptography.decrypt(slug);
+      slug && fetchData(decrypt);
 
-    fetchData();
+      if (typeof slug !== "string") {
+        router.push("/home");
+        return;
+      }
+    }
   }, []);
 
   if (isLoading) return <Loading />;
