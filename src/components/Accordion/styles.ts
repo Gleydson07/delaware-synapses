@@ -84,12 +84,21 @@ export const AccordionContainer = styled.div`
 
           & > li {
             border-bottom: 2px solid #f2f2f2;
-            max-height: 45px;
+            /* max-height: 45px; */
             overflow: hidden;
 
             &.isActive {
               max-height: 1000px;
               transition: max-height 0.3s linear;
+
+              .accordion-item-doc {
+                margin-top: 10px;
+                padding-left: 20px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                max-height: 200px;
+                transition: max-height 0.3s linear;
+              }
             }
 
             .accordion-item-header {
@@ -97,14 +106,18 @@ export const AccordionContainer = styled.div`
               align-items: center;
               justify-content: space-between;
               padding-left: 20px;
+
+              span {
+                max-width: 90%;
+              }
             }
 
             .accordion-item-doc {
               background: #f2f2f2;
-              margin-top: 10px;
-              padding-left: 20px;
-              padding-top: 10px;
-              padding-bottom: 10px;
+              max-height: 0;
+              overflow: hidden;
+              margin: 0;
+              padding: 0;
 
               & > p {
                 margin-bottom: 5px;

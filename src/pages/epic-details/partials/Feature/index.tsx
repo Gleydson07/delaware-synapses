@@ -91,7 +91,7 @@ export default function Feature({ token, currentEpic }: FeatureProps) {
     return responseTasks;
   };
 
-  const mountedStructureFeature = async () => {
+  const fetchData = async () => {
     allFeatures = await getFeaturesForAllEpics();
 
     setFeatures(allFeatures);
@@ -132,7 +132,7 @@ export default function Feature({ token, currentEpic }: FeatureProps) {
   }
 
   useEffect(() => {
-    mountedStructureFeature();
+    fetchData();
   }, [currentEpic]);
 
   return (
@@ -173,6 +173,7 @@ export default function Feature({ token, currentEpic }: FeatureProps) {
 
               {users?.map((user: any) => {
                 if (feature.featureId === user.featureId) {
+                  console.log(user.hasWorkFlow)
                   const uniqueTasks = new Set<number>();
                   const userTasks = tasks?.filter((task: any) => {
                     if (

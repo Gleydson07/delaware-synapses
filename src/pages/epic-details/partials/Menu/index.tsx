@@ -2,7 +2,6 @@ import Wrapper from "@/components/Wrapper";
 import { MenuDetailsContainer } from "./styles";
 import Legend from "@/components/legend";
 import Card from "@/components/Card";
-import iconPast from "@/assets/icons/cc-project.svg";
 import { DropDownCards } from "../DropdownCard";
 import ProgressBar from "@/components/ProgressBar";
 import { cryptography } from "@/utils/cryptography";
@@ -11,6 +10,7 @@ import { useEffect, useState } from "react";
 import Feature from "../Feature";
 import { useRouter } from "next/router";
 
+import iconBackArrow from "@/assets/icons/back-arrow.svg";
 interface MenuProps {
   token: string,
   phases: any,
@@ -54,7 +54,7 @@ export default function Menu({ token, phases, epics }: MenuProps) {
       epicId: epic.epicId,
     });
 
-    setPhaseId("Explore");
+    setPhaseId(epic.epicId);
     router.push(`${newHash}`);
   }
 
@@ -151,7 +151,7 @@ export default function Menu({ token, phases, epics }: MenuProps) {
 
   useEffect(() => {
     setcurrentEpic(epicFilter)
-  }, [phaseId]);
+  }, [epicFilter]);
 
   return (
     <>
@@ -159,11 +159,10 @@ export default function Menu({ token, phases, epics }: MenuProps) {
         <div className="header-wrapper">
           <Wrapper>
             <Card
-              // link={`/control-center/${decript.uuid}`}
               onClick={() => router.push(`/control-center/${decript.uuid}`)}
               title="Control Center"
               text="Back to Dashboard"
-              icon={iconPast}
+              icon={iconBackArrow}
             />
           </Wrapper>
         </div>

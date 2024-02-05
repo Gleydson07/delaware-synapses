@@ -6,7 +6,7 @@ export const MenuDetailsContainer = styled.div`
   gap: 0.5rem;
   margin-bottom: 30px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 950px) {
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 25px;
@@ -15,19 +15,22 @@ export const MenuDetailsContainer = styled.div`
   .header-wrapper {
     height: 250px;
 
-
     @media (max-width: 1260px) {
       height: auto;
     }
 
-    @media (max-width: 768px) {
-      flex: 1;
+    @media (max-width: 950px) {
+      width: calc(50% - 5px);
+    }
+
+    @media (max-width: 550px) {
+      width: 100%;
     }
 
     &.main {
       flex: 1;
 
-      @media (max-width: 768px) {
+      @media (max-width: 950px) {
         order: 2;
         width: 100%;
       }
