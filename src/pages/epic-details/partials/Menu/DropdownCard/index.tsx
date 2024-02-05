@@ -19,7 +19,7 @@ const iconArrow = (color: string) => (
 
 export function DropDownCards({ projectName, title, isDropDown, children }: DropDownCards) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const dropDownRef = useRef<HTMLDivElement>(null); // Adicionando tipo explícito
+  const dropDownRef = useRef<HTMLDivElement>(null);
 
   const isOpenDropDown = () => {
     setIsOpen(!isOpen);
