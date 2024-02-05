@@ -163,6 +163,7 @@ export default function Menu({ token, phases, epics }: MenuProps) {
           <Wrapper>
             <Card
               // link={`/control-center/${decript.uuid}`}
+              onClick={() => router.push(`/control-center/${decript.uuid}`)}
               title="Control Center"
               text="Back to Dashboard"
               icon={iconPast}

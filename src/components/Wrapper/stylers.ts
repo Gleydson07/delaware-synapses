@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const WrapperContainer = styled.div`
-  /* max-height: calc(100% - 85px); */
+/* max-height: calc(100% - 85px); */
   height: 100%;
-  width: 100%;
+    width: 100%;
   border: 2px solid #7f7f7f;
   border-radius: 0.75rem;
   padding: 18px;

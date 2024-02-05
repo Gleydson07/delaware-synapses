@@ -2,7 +2,7 @@ import Image from "next/image";
 import iconCrow from "@/assets/icons/crown.svg"
 
 import { ProgressBarContainer } from "./styles";
-import { useRouter } from "next/navigation";
+import { onGetColorPhase } from "@/styles/color";
 
 interface ProgressBarProps {
   step: number,
@@ -16,18 +16,6 @@ interface ProgressBarProps {
   tooltip?: string,
   onClick?: () => void
 }
-
-const onGetColorPhase = (phase: string) => {
-  const colorMap: Record<string, { bg: string; color: string }> = {
-    prepare: { bg: "#a5b3c5", color: "#69809f" },
-    explore: { bg: "#f4b183", color: "#ed7d31" },
-    realize: { bg: "#a9d18e", color: "#70AD47" },
-    deploy: { bg: "#f66", color: "#FF0000" },
-    run: { bg: "#ab74d5", color: "#7030A0" },
-  };
-
-  return colorMap[phase.toLocaleLowerCase()] || { bg: "", color: "" };
-};
 
 export default function ProgressBar({
   step,
@@ -45,8 +33,8 @@ export default function ProgressBar({
   return (
     <ProgressBarContainer
       $percentComplete={percentComplete}
-      $bgColor={onGetColorPhase(phase).bg}
-      $color={onGetColorPhase(phase).color}
+      $bgColor={onGetColorPhase(phase).primary}
+      $color={onGetColorPhase(phase).secundary}
       $tooltip={tooltip}
       onClick={onClick}
     >

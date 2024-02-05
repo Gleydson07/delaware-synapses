@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 interface HeaderAvatarProps {
   $isVisible: boolean
@@ -7,6 +7,19 @@ interface HeaderAvatarProps {
 export const HeaderContainer = styled.header`
 display: flex;
 justify-content: space-between;
+
+@media(max-width: 768px){
+  flex-wrap: wrap;
+
+  .header-logo{
+    order: 0;
+  }
+  .header-content{
+    order: 2;
+    width: 100%;
+    margin-top: 20px;
+  }
+}
 
   .header-logo{
     img{
@@ -35,6 +48,11 @@ justify-content: space-between;
 
 export const HeaderAvatar = styled.div<HeaderAvatarProps>`
   position: relative;
+
+  @media(max-width: 650px){
+    order: 1;
+}
+
   .header-btn{
     background: none;
     border: none;
@@ -59,6 +77,7 @@ export const HeaderAvatar = styled.div<HeaderAvatarProps>`
     box-shadow: 1px 2px 7px;
     background: white;
     border-radius: 0.50rem;
+    z-index: 1;
 
     & > button{
       display: flex;

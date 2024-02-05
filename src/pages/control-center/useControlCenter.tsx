@@ -79,25 +79,31 @@ export const useControlCenter = () => {
   };
 
   const renderGroupedProgressBars = (epics: any) => {
+    const itemsPerColumn = Math.ceil(epics.length/3);
     const totalItems = epics.length;
-    const groupedProgressBars: any = [[], [], []];
+    const numberOfColumns = Math.ceil(totalItems / itemsPerColumn);
+    const groupedProgressBars: any[] = [];
 
-    for (let i = 0; i < totalItems; i++) {
-      const columnIndex = i % 3;
-      groupedProgressBars[columnIndex].push(
+    for (let columnIndex = 0; columnIndex < numberOfColumns; columnIndex++) {
+      const startIndex = columnIndex * itemsPerColumn;
+      const endIndex = Math.min(startIndex + itemsPerColumn, totalItems);
+
+      const columnItems = epics.slice(startIndex, endIndex).map((epic:any, index: number) => (
         <ProgressBar
-          key={i}
-          step={epics[i].step}
-          name={epics[i].name}
-          phase={getNamePhases(epics[i].phaseId)}
-          plannedDate={epics[i].plannedDate}
-          completeWork={epics[i].completeWork}
-          totalWork={epics[i].totalWork}
-          percentComplete={epics[i].percentComplete}
-          tooltip={epics[i].name}
-          onClick={() => handleNavigateToEpic(epics[i])}
+          key={startIndex + index}
+          step={epic.step}
+          name={epic.name}
+          phase={getNamePhases(epic.phaseId)}
+          plannedDate={epic.plannedDate}
+          completeWork={epic.completeWork}
+          totalWork={epic.totalWork}
+          percentComplete={epic.percentComplete}
+          tooltip={epic.name}
+          onClick={() => handleNavigateToEpic(epic)}
         />
-      );
+      ));
+
+      groupedProgressBars.push(columnItems);
     }
 
     return groupedProgressBars.map((column: any, index: any) => (
@@ -109,13 +115,11 @@ export const useControlCenter = () => {
     ));
   };
 
-  const progressBarGroups = renderGroupedProgressBars(epics);
-
   return {
     isLoading,
     phases,
     handleGoToBack,
     handleNavigateToPhase,
-    progressBarGroups
+    progressBarGroups: renderGroupedProgressBars(epics),
   }
 }

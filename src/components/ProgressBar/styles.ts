@@ -126,8 +126,9 @@ const IsTooltip = (props: string) =>
   props.length > 0 &&
   css`
     &::before {
-      content: "asdasdasdasd";
+      content: '${props}';
       position: absolute;
+      white-space: nowrap;
       left: 50%;
       top: -50px;
       width: auto;
@@ -139,7 +140,7 @@ const IsTooltip = (props: string) =>
       opacity: 0;
       transform: translate(-50%, 0px);
       transition: all 0.4s ease;
-      pointer-events: none;
+      pointer-events: none;
     }
 
     &::after {
@@ -155,7 +156,7 @@ const IsTooltip = (props: string) =>
       border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
       transform: translate(-90%, 0px) rotate(-45deg);
       transition: all 0.4s ease;
-      pointer-events: none;
+      pointer-events: none;
     }
 
     &:hover:after,

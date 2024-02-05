@@ -3,14 +3,21 @@ import { ContainerLogin } from "./styles";
 import logo from "@/assets/imgs/delaware.png";
 import { useRouter } from "next/navigation";
 import { loginRedirect } from "@/api/auth";
+import { useTitleHeader } from "@/hooks/useHeader";
+import { useEffect } from "react";
 
 export default function Login() {
+  const { clearProjectName } = useTitleHeader();
   const router = useRouter();
 
   const handleLogin = async () => {
     const redirectTo = await loginRedirect();
     router.push(redirectTo);
   }
+
+  useEffect(() => {
+    clearProjectName();
+  }, []);
 
   return (
     <ContainerLogin>
