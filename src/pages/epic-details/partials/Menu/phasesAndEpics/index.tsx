@@ -2,7 +2,6 @@ import ProgressBar from "@/components/ProgressBar";
 import Wrapper from "@/components/Wrapper";
 import CardProgress from "@/components/CardProgress";
 import { DropDownCards } from "../DropdownCard";
-import Feature from "../../Feature";
 import UsePhasesAndEpics from "./usePhasesAndEpics";
 
 interface MenuProps {

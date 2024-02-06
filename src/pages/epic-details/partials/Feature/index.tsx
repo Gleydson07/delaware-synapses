@@ -1,7 +1,6 @@
 import Wrapper from "@/components/Wrapper";
 import { CardDetails } from "./styles";
 import CardProgress from "@/components/CardProgress";
-import Accordion from "@/components/Accordion";
 import { onGetColorPhaseStatus } from "@/styles/color";
 import { cryptography } from "@/utils/cryptography";
 import { useEffect, useState } from "react";
@@ -12,9 +11,6 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import { findFeaturesByFaseIdAndProjectId } from "@/api/feature";
-import { fetchUserStoriesData } from "@/api/userHistory";
-import { findTasksByStoryIdAndProjectId, runWorkflow } from "@/api/tasks";
-import { runWorkFlow } from "@/api/workflow";
 import Users from "./Users";
 
 interface FeatureProps {
