@@ -13,7 +13,12 @@ const fillAnimation = (percentComplete: number) => keyframes`
       width: 0%;
     }
     100% {
-      width: calc(${percentComplete}% - 20px)
+      width: calc(${percentComplete === 0
+    ? percentComplete
+    : percentComplete < 7
+      ? 7
+      : percentComplete
+  }% - 20px)
     }
 `;
 

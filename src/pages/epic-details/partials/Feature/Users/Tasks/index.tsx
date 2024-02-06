@@ -3,10 +3,7 @@ import { runWorkFlow } from "@/api/workflow";
 import Accordion from "@/components/Accordion";
 import { useEffect, useState } from "react";
 
-export default function Tasks({
-  user,
-  decrypted,
-}: any) {
+export default function Tasks({ user, decrypted }: any) {
   const [tasks, setTasks] = useState<any>([]);
 
   const getTasksForAllUser = async () => {
@@ -26,11 +23,9 @@ export default function Tasks({
   };
 
   const handleStartWorkflow = async (userStoryId: number) => {
-
-
     const dataWork = {
-      "userStoryId": userStoryId,
-      "environmentId": 1
+      userStoryId: userStoryId,
+      environmentId: 1,
     };
 
     await runWorkFlow(dataWork);
