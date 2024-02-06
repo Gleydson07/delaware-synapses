@@ -53,6 +53,7 @@ export default function UsePhasesandEpics(token: any, phases: any, epics: any) {
     phaseTitle,
     handleSwitchPhase,
     handleSwitchEpic,
-    epicFilter
+    epicFilter,
+    currentEpic
   }
 }
