@@ -16,7 +16,7 @@ const fillAnimation = (percentComplete: number) => keyframes`
       width: calc(${percentComplete === 0
     ? percentComplete
     : percentComplete < 7
-      ? 7
+      ? 5
       : percentComplete
   }% - 20px)
     }

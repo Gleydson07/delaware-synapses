@@ -70,9 +70,9 @@ export default function Feature({ token, currentEpic }: FeatureProps) {
                 name={feature.status.id}
                 totalWork={feature.totalWork}
                 icon={IconFeatureStatus(
-                  onGetColorPhaseStatus(feature.status.id).primary
+                  onGetColorPhaseStatus(feature.status.id).secondary
                 )}
-                isFeature={true}
+                isFeatureCard={true}
               />
               <Users featureId={feature.featureId} decrypted={decript} />
             </CardDetails>

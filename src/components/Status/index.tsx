@@ -9,6 +9,6 @@ interface StatusProps {
 
 export default function Status({ status }: StatusProps) {
   return (
-    <StatusContainer $color={onGetColorPhaseStatus(status).secundary} $bgColor={onGetColorPhaseStatus(status).primary} />
+    <StatusContainer $color={onGetColorPhaseStatus(status).primary} $bgColor={onGetColorPhaseStatus(status).secondary} />
   )
 }

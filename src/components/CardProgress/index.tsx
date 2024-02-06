@@ -9,22 +9,11 @@ interface CardProgressProps {
   totalWork: number;
   completeWork: number;
   icon?: any;
-  isFeature?: boolean,
+  isFeatureCard?: boolean,
   onClick?: () => void;
 }
 
-export const asdasda = (phase: string) => {
-  const colorMap: Record<string, { primary: string; secundary: string }> = {
-    prepare: { primary: "#a5b3c5", secundary: "#69809f" },
-    explore: { primary: "#f4b183", secundary: "#ed7d31" },
-    realize: { primary: "#a9d18e", secundary: "#70AD47" },
-    deploy: { primary: "#f66", secundary: "#FF0000" },
-    run: { primary: "#ab74d5", secundary: "#7030A0" },
-  };
-
-  return colorMap[phase.toLocaleLowerCase()] || { primary: "", secundary: "" };
-};
-
+//@isFeature serve somente para mudar o estilo do card
 export default function CardProgress({
   percentComplete,
   title,
@@ -34,7 +23,7 @@ export default function CardProgress({
   completeWork,
   icon,
   onClick,
-  isFeature = false,
+  isFeatureCard = false,
 }: CardProgressProps) {
   const typeColor =
     typeof name === "string" ? onGetColorPhase(name) : onGetColorPhaseStatus(name);
@@ -42,15 +31,15 @@ export default function CardProgress({
   return (
     <CardProgressContainer
       $percentComplete={percentComplete}
-      $bgColor={typeof name === "string" ? typeColor.primary : typeColor.secundary}
-      $color={typeColor.primary}
-      $isFeature={isFeature}
+      $primaryColor={typeColor.primary}
+      $secondaryColor={typeColor.secondary}
+      $isFeatureCard={isFeatureCard}
     >
       {title && <h2 className="card-progress-title">{title}</h2>}
 
       <div className="card-progress" onClick={onClick}>
         <figure className="card-progress-icon">
-          {icon ? icon : iconPhase(typeColor.secundary)}
+          {icon ? icon : iconPhase(typeColor.secondary)}
         </figure>
 
         <div className="card-progress-wrapper">

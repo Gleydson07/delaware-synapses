@@ -35,7 +35,7 @@ export default function ProgressBar({
     <ProgressBarContainer
       $percentComplete={percentComplete}
       $bgColor={onGetColorPhase(phase).primary}
-      $color={onGetColorPhase(phase).secundary}
+      $color={onGetColorPhase(phase).secondary}
       $tooltip={tooltip}
       onClick={onClick}
     >

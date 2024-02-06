@@ -40,10 +40,10 @@ export function DropDownCards({ projectName, title, isDropDown, children }: Drop
   }, []);
 
   return (
-    <DropDownContainer ref={dropDownRef} $isOpen={isOpen} $color={onGetColorPhase(projectName).secundary}>
+    <DropDownContainer ref={dropDownRef} $isOpen={isOpen} $color={onGetColorPhase(projectName).secondary}>
       <div className="phases-dropdown-title">
         <button onClick={() => isOpenDropDown()}>
-          <h2>{title}</h2>{isDropDown && iconArrow(onGetColorPhase(projectName).secundary)}
+          <h2>{title}</h2>{isDropDown && iconArrow(onGetColorPhase(projectName).secondary)}
         </button>
       </div>
 
@@ -107,10 +107,10 @@ export function DropDownCards({ projectName, title, isDropDown, children }: Drop
 //   }, []);
 
 //   return (
-//     <DropDownContainer ref={dropDownRef} $isOpen={isOpen} $color={onGetColorPhase(projectName).secundary}>
+//     <DropDownContainer ref={dropDownRef} $isOpen={isOpen} $color={onGetColorPhase(projectName).secondary}>
 //       <div className="phases-dropdown-title">
 //         <button onClick={() => isOpenDropDown()}>
-//           <h2>{title}</h2>{isDropDown && iconArrow(onGetColorPhase(projectName).secundary)}
+//           <h2>{title}</h2>{isDropDown && iconArrow(onGetColorPhase(projectName).secondary)}
 //         </button>
 //       </div>
 

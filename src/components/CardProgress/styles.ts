@@ -2,17 +2,17 @@ import { keyframes, styled } from "styled-components";
 
 interface CardProgressContainerProps {
   $percentComplete: number;
-  $color: string;
-  $bgColor: string;
-  $isFeature: boolean;
+  $primaryColor: string;
+  $secondaryColor: string;
+  $isFeatureCard: boolean;
 }
 
 const fillAnimation = (percentComplete: number) => keyframes`
     0% {
       width: 0%;
     }
-    100% {
-      width: calc(${percentComplete === 0
+  100% {
+    width: calc(${percentComplete === 0
     ? percentComplete
     : percentComplete < 3
       ? 3
@@ -32,14 +32,14 @@ export const CardProgressContainer = styled.div<CardProgressContainerProps>`
     padding-left: 0.5rem;
     margin-bottom: 5px;
     text-transform: uppercase;
-    color: ${(props) => props.$color};
+    color: ${(props) => props.$secondaryColor};
   }
 
   .card-progress {
     flex: 1;
     display: flex;
     gap: 0.75rem;
-    background-color: ${(props) => props.$bgColor};
+    background-color: ${(props) => props.$primaryColor};
     border-radius: 0.75rem;
     padding: 1rem;
     cursor: pointer;
@@ -57,7 +57,8 @@ export const CardProgressContainer = styled.div<CardProgressContainerProps>`
 
       .card-progress-percent-complete {
         font-size: 1.125rem;
-        color: ${(props) => (!props.$isFeature ? "white" : props.$color)};
+        color: ${(props) =>
+    !props.$isFeatureCard ? "white" : props.$secondaryColor};
       }
 
       .card-progress-content {
@@ -73,7 +74,8 @@ export const CardProgressContainer = styled.div<CardProgressContainerProps>`
           & > span {
             margin-bottom: 10px;
             font-size: 0.875rem;
-            color: ${(props) => (!props.$isFeature ? "white" : props.$color)};
+            color: ${(props) =>
+    !props.$isFeatureCard ? "white" : props.$secondaryColor};
             width: 100%;
 
             &:nth-child(1) {
@@ -105,7 +107,7 @@ export const CardProgressContainer = styled.div<CardProgressContainerProps>`
             content: "";
             width: 100%;
             height: calc(100% - 4px);
-            background: ${(props) => props.$color};
+            background: ${(props) => props.$secondaryColor};
             border-radius: 0.375rem;
             animation: ${(props) => fillAnimation(props.$percentComplete)} 0.8s
               ease both;
