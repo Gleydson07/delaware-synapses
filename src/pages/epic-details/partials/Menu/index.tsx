@@ -2,6 +2,7 @@ import { MenuDetailsContainer } from "./styles";
 import BtnBack from "./btnBack";
 import PhaseAndEpics from "./phasesAndEpics";
 import LegendContent from "./legend";
+import Feature from "../Feature";
 interface MenuProps {
   token: string,
   phases: any,
@@ -17,7 +18,7 @@ export default function Menu({ token, phases, epics }: MenuProps) {
         <LegendContent />
       </MenuDetailsContainer>
 
-      {/* <Feature currentEpic={currentEpic} token={token} /> */}
+      <Feature currentEpic={epics} token={token} />
     </>
   )
 }

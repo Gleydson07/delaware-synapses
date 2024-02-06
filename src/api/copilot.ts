@@ -1,18 +1,17 @@
-import { HttpMethodsProps, httpMethods } from "../utils/config";
-import { fetchAPISysnapses } from "./clients/sysnapsesService";
+import { httpMethods } from "../utils/config";
+import { fetchAPIIA } from "./clients/IAService";
 
 export async function copilotSendMenssage(body: any): Promise<any> {
   try {
-    const data = await fetchAPISysnapses(
-      httpMethods.POST as HttpMethodsProps,
+    const data = await fetchAPIIA(
+      httpMethods.POST as "POST",
       "/api/v1/questions",
       body,
-      true
     );
 
     return data;
   } catch (error) {
-    console.error('Error fetching Projects data:', error);
+    console.error('Error fetching IA data:', error);
   }
 };
 

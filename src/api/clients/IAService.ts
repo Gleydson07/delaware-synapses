@@ -1,23 +1,18 @@
-import { HttpMethodsProps, storageKeys } from "../../utils/config";
+import { storageKeys } from "../../utils/config";
 
-export const fetchAPISysnapses = async (
-  method: HttpMethodsProps,
+export const fetchAPIIA = async (
+  method: "POST",
   path: string,
-  options?: any,
+  body?: any,
 ) => {
   try {
     const token = localStorage.getItem(storageKeys.accessToken);
-    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || '';
+    const baseURL = process.env.NEXT_PUBLIC_IA_BASE_URL || '';
     const url = new URL(path, baseURL);
-
-    if (options) {
-      Object.entries(options).forEach(([key, value]) => {
-        url.searchParams.append(key, value as string);
-      });
-    }
 
     const requestOptions: any = {
       method: method,
+      body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",

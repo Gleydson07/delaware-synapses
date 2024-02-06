@@ -2,7 +2,7 @@ import { EpicProps, findEpicsByFaseIdAndProjectId } from "@/api/epic";
 import { PhaseProps, findPhasesByProjectId } from "@/api/phases";
 import { cryptography } from "@/utils/cryptography";
 import Menu from "./partials/Menu";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
 import Loading from "@/components/Loading";
@@ -10,6 +10,7 @@ import Wrapper from "@/components/Wrapper";
 import ErrorPage from "@/components/PageError";
 
 export default function EpicDetails() {
+  const isFirstRender = useRef(true);
   const [phases, setPhases] = useState<PhaseProps[]>([]);
   const [epics, setEpics] = useState<EpicProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,16 +46,17 @@ export default function EpicDetails() {
   };
 
   useEffect(() => {
-    if (!!slug) {
+    if (!!slug && isFirstRender.current) {
       const decrypt = slug && cryptography.decrypt(slug);
       slug && fetchData(decrypt);
+      isFirstRender.current = false;
 
       if (typeof slug !== "string") {
         router.push("/home");
         return;
       }
     }
-  }, []);
+  }, [slug]);
 
   if (isLoading) return <Loading />;
 
