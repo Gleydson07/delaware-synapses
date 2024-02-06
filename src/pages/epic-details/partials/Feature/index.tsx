@@ -5,11 +5,11 @@ import { onGetColorPhaseStatus } from "@/styles/color";
 import { cryptography } from "@/utils/cryptography";
 import { useEffect, useState } from "react";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { FreeMode, Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/free-mode';
-import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
 import { findFeaturesByFaseIdAndProjectId } from "@/api/feature";
 import Users from "./Users";
 
@@ -77,21 +77,21 @@ export default function Feature({ token, currentEpic }: FeatureProps) {
         centeredSlides={false}
         pagination={{
           clickable: true,
-          type: "progressbar"
+          type: "progressbar",
         }}
         breakpoints={{
           768: {
             slidesPerView: 2,
-            spaceBetween: 10
+            spaceBetween: 10,
           },
           1200: {
             slidesPerView: 3,
-            spaceBetween: 30
+            spaceBetween: 30,
           },
         }}
         modules={[FreeMode, Pagination]}
-        className="mySwiper">
-
+        className="mySwiper"
+      >
         {features?.map((feature: any) => (
           <SwiperSlide key={feature.featureId}>
             <CardDetails key={feature.almId}>
@@ -101,7 +101,9 @@ export default function Feature({ token, currentEpic }: FeatureProps) {
                 percentComplete={feature.percentComplete}
                 name={feature.status.id}
                 totalWork={feature.totalWork}
-                icon={iconFeatureStatus(onGetColorPhaseStatus(feature.status.id).primary)}
+                icon={iconFeatureStatus(
+                  onGetColorPhaseStatus(feature.status.id).primary
+                )}
                 isFeature={true}
               />
               <Users featureId={feature.featureId} decrypted={decript} />

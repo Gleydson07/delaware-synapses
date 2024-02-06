@@ -25,9 +25,11 @@ export default function Tasks({
     }
   };
 
-  const handleStartWorkflow = async () => {
+  const handleStartWorkflow = async (userStoryId: number) => {
+
+
     const dataWork = {
-      "userStoryId": 3, //user.userStoryId,
+      "userStoryId": userStoryId,
       "environmentId": 1
     };
 
@@ -45,7 +47,7 @@ export default function Tasks({
       userId={user.userStoryId}
       status={user.status.id}
       hasWorkFlow={user.hasWorkflow}
-      handleClick={handleStartWorkflow}
+      handleClick={() => handleStartWorkflow(user.userStoryId)}
     />
   );
 }

@@ -6,7 +6,7 @@ import { cryptography } from "@/utils/cryptography";
 import Image from "next/image";
 import iconUsefullDoc from "@/assets/icons/useful-doc.svg"
 import Tooltip from "@/components/Tooltip";
-interface ContentProps {
+interface TaskProps {
   name: "string",
   isAutomated: boolean,
   status: {
@@ -32,17 +32,16 @@ interface ContentProps {
 }
 
 interface AccordionTaskProps {
-  title: string,
-  task: ContentProps,
+  task: TaskProps,
 }
 
-export default function AccordionTask({ title, task }: AccordionTaskProps) {
+export default function AccordionTask({ task }: AccordionTaskProps) {
   const router = useRouter();
   const decript = cryptography.decrypt(router.query.slug as string);
   const [isOpen, setIsOpen] = useState<boolean>(decript.taskId === task.taskId);
 
 
-  const handleIsOpenTask = (task: any) => {
+  const handleIsOpenTask = () => {
     const newHash = cryptography.encrypt({
       ...decript,
       taskId: !isOpen ? task.taskId : decript.taskId,
@@ -50,12 +49,13 @@ export default function AccordionTask({ title, task }: AccordionTaskProps) {
 
     setIsOpen((prevIsOpen: boolean) => !prevIsOpen);
 
+
     router.push(`${newHash}`);
   };
 
 
   return (
-    <li className={isOpen ? "isActive" : ''} onClick={() => handleIsOpenTask(task)}>
+    <li className={isOpen ? "isActive" : ''} onClick={handleIsOpenTask}>
       <div className="accordion-item-header">
         <span>{task.title}</span>
         <Status status={task.status.id} />

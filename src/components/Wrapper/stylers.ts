@@ -12,7 +12,7 @@ export const WrapperContainer = styled.div`
   /* overflow-y: auto; */
 
 
-  /* max-height: 500px; */
+  /* max-height: calc(100vh - 120px); */
   /* overflow: auto; */
   /* border: 1px solid red; */
 
