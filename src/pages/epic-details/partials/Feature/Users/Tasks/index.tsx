@@ -40,7 +40,7 @@ export default function Tasks({
 
   return (
     <Accordion
-      items={[{ title: user.title, content: tasks }]}
+      itemsTasks={[{ title: user.title, content: tasks }]}
       featureId={user.featureId}
       userId={user.userStoryId}
       status={user.status.id}

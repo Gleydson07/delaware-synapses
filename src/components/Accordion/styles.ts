@@ -45,10 +45,17 @@ export const AccordionContainer = styled.div`
           justify-content: space-between;
           gap: 10px;
 
-          & > h3 {
+          h3 {
             font-size: 16px;
             color: #393939;
             font-weight: 700;
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            max-width: 100%;
           }
         }
 
@@ -84,7 +91,6 @@ export const AccordionContainer = styled.div`
 
           & > li {
             border-bottom: 2px solid #f2f2f2;
-            /* max-height: 45px; */
             overflow: hidden;
 
             &.isActive {
@@ -106,9 +112,19 @@ export const AccordionContainer = styled.div`
               align-items: center;
               justify-content: space-between;
               padding-left: 20px;
+              gap: 20px;
 
               span {
-                max-width: 90%;
+                &:nth-child(1) {
+                  overflow: hidden;
+
+                  text-overflow: ellipsis;
+                  display: -webkit-box;
+                  -webkit-line-clamp: 1;
+                  -webkit-box-orient: vertical;
+                  max-width: 80%;
+                }
+
               }
             }
 

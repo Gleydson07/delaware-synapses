@@ -13,6 +13,7 @@ export const CopilotContainer = styled.div`
   opacity: 0.8;
   background-color: #f2f2f2;
   cursor: pointer;
+  z-index: 100;
 
   & > p {
     color: #c42828;

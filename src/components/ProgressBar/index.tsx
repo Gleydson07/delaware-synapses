@@ -3,6 +3,7 @@ import iconCrow from "@/assets/icons/crown.svg"
 
 import { ProgressBarContainer } from "./styles";
 import { onGetColorPhase } from "@/styles/color";
+import Tooltip from "../Tooltip";
 
 interface ProgressBarProps {
   step: number,
@@ -52,7 +53,9 @@ export default function ProgressBar({
               <figure>
                 <Image src={iconCrow} alt="icone de uma coroa" />
               </figure>
-              <span>{name}</span>
+              <Tooltip text={name}>
+                <span className="progress-bar-phase">{name}</span>
+              </Tooltip>
             </div>
 
             {plannedDate && <time>{plannedDate}</time>}
