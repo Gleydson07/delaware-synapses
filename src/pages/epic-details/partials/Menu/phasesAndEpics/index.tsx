@@ -1,26 +1,26 @@
 import ProgressBar from "@/components/ProgressBar";
 import Wrapper from "@/components/Wrapper";
 import CardProgress from "@/components/CardProgress";
-import UsePhasesandEpics from "./usePhasesAndEpics";
 import { DropDownCards } from "../DropdownCard";
 import Feature from "../../Feature";
+import UsePhasesAndEpics from "./usePhasesAndEpics";
 
 interface MenuProps {
   token: string;
   phases: any;
   epics: any;
+  onChangeEpic: (epic: any) => void;
 }
 
-export default function PhaseAndEpics({ token, phases, epics }: MenuProps) {
+export default function PhaseAndEpics({ token, phases, epics, onChangeEpic }: MenuProps) {
   const {
     epicFilter,
-    epicFindrelatePhase,
+    epicFindRelatePhase,
     findPhase,
     handleSwitchEpic,
     phaseTitle,
     handleSwitchPhase,
-    currentEpic
-  } = UsePhasesandEpics(token, phases, epics);
+  } = UsePhasesAndEpics(token, phases, epics, onChangeEpic);
 
   return (
     <div style={{ width: "1450px" }}>
@@ -61,11 +61,11 @@ export default function PhaseAndEpics({ token, phases, epics }: MenuProps) {
 
             <div className="phases-container-item">
               <DropDownCards
-                isDropDown={epicFindrelatePhase.length > 1}
+                isDropDown={epicFindRelatePhase.length > 1}
                 projectName={phaseTitle}
                 title={"Epic"}
               >
-                {epicFindrelatePhase.map((epic: any) => {
+                {epicFindRelatePhase.map((epic: any) => {
                   return (
                     <ProgressBar
                       key={epic.epicId}
@@ -97,9 +97,9 @@ export default function PhaseAndEpics({ token, phases, epics }: MenuProps) {
         </Wrapper>
       </div>
 
-      <div className="header-wrapper">
+      {/* <div className="header-wrapper">
         {currentEpic && <Feature currentEpic={currentEpic} token={token} />}
-      </div>
+      </div> */}
 
     </div>
   );

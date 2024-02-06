@@ -44,7 +44,7 @@ export default function Header() {
 
         <div className="header-popup">
           <button onClick={handleLogout}>
-            <Image src={logout} alt="icone de logout" />
+            <Image width={25} src={logout} alt="icone de logout" />
             Logout
           </button>
         </div>

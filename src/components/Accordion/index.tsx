@@ -66,15 +66,16 @@ export default function Accordion({ items, userId, featureId, hasWorkFlow, statu
   };
 
   const handleIsOpenTask = (event: React.MouseEvent, index: number, task: any) => {
-    // const decript = cryptography.decrypt(router.query.slug as string);
-    // const isOpen = activeIndex !== null ? index === activeIndex : true && task.taskId !== task.taskId;
-    // const newHash = cryptography.encrypt({
-    //   ...decript,
-    //   taskId: isOpen ? task.taskId : 0,
-    // });
+    const decript = cryptography.decrypt(router.query.slug as string);
+    const isOpen = activeIndex !== null ? index === activeIndex : true;
+
+    const newHash = cryptography.encrypt({
+      ...decript,
+      taskId: isOpen ? task.taskId : 0,
+    });
 
     setActiveItem(index === activeItem ? null : index);
-    // router.push(`${newHash}`);
+    router.push(`${newHash}`);
   };
 
   return (

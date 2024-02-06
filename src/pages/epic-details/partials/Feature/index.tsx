@@ -15,6 +15,7 @@ import { findFeaturesByFaseIdAndProjectId } from "@/api/feature";
 import { fetchUserStoriesData } from "@/api/userHistory";
 import { findTasksByStoryIdAndProjectId, runWorkflow } from "@/api/tasks";
 import { runWorkFlow } from "@/api/workflow";
+import Users from "./Users";
 
 interface FeatureProps {
   token: any;
@@ -54,85 +55,22 @@ const iconFeatureStatus = (color: string) => (
 );
 
 export default function Feature({ token, currentEpic }: FeatureProps) {
+  const [features, setFeatures] = useState<any>();
   const decript = cryptography.decrypt(token);
 
-  let allFeatures: any;
-  let allUsers: any;
-  let allTasks: any;
-
-  const [features, setFeatures] = useState<any>();
-  const [users, setUsers] = useState<any>();
-  const [tasks, setTasks] = useState<any>();
-
-  const getFeaturesForAllEpics = async () => {
+  const fetchData = async () => {
     const responseFeatures = await findFeaturesByFaseIdAndProjectId(
       currentEpic.epicId,
       decript.uuid
     );
 
-    return responseFeatures;
+    setFeatures(responseFeatures);
   };
-
-  const getUserStorysForAllFeature = async (featureId: number) => {
-    const responseUserStories = await fetchUserStoriesData(
-      featureId,
-      decript.uuid
-    );
-
-    return responseUserStories;
-  };
-
-  const getTasksForAllUser = async (userStoryId: number) => {
-    const responseTasks = await findTasksByStoryIdAndProjectId(
-      userStoryId,
-      decript.uuid
-    );
-
-    return responseTasks;
-  };
-
-  const fetchData = async () => {
-    allFeatures = await getFeaturesForAllEpics();
-
-    setFeatures(allFeatures);
-
-    if (allFeatures) {
-      const userPromises = allFeatures.map(async (feature: any) => {
-        const users = await getUserStorysForAllFeature(feature.featureId);
-        return users ? users : undefined;
-      });
-
-      const allUserPromise = await Promise.all(userPromises);
-      const allUsersFlated = allUserPromise.flat();
-      allUsers = allUsersFlated;
-      setUsers(allUsersFlated);
-    }
-
-    if (allUsers) {
-      const tasksPromises = allUsers.map(async (user: any) => {
-        const tasks = await getTasksForAllUser(user.userStoryId);
-        return tasks ? tasks : undefined;
-      });
-
-      const allTaskPromise = await Promise.all(tasksPromises);
-      const allTasksFlated = allTaskPromise.flat();
-      allTasks = allTasksFlated;
-
-      setTasks(allTasksFlated);
-    }
-  };
-
-  const handleStartWorkflow = async (userStoryId: string) => {
-    const dataWork = {
-      "userStoryId": 3, //userStoryId,
-      "environmentId": 1
-    };
-
-    await runWorkFlow(dataWork);
-  }
 
   useEffect(() => {
-    fetchData();
+    if (currentEpic) {
+      fetchData();
+    }
   }, [currentEpic]);
 
   return (
@@ -170,38 +108,7 @@ export default function Feature({ token, currentEpic }: FeatureProps) {
                 icon={iconFeatureStatus(onGetColorPhaseStatus(feature.status.id).primary)}
                 isFeature={true}
               />
-
-              {users?.map((user: any) => {
-                if (feature.featureId === user.featureId) {
-                  console.log(user.hasWorkFlow)
-                  const uniqueTasks = new Set<number>();
-                  const userTasks = tasks?.filter((task: any) => {
-                    if (
-                      user.userStoryId === task.userStoryId &&
-                      !uniqueTasks.has(task.taskId)
-                    ) {
-                      uniqueTasks.add(task.taskId);
-                      return true;
-                    }
-                    return false;
-                  });
-
-                  if (userTasks && userTasks.length > 0) {
-                    return (
-                      <Accordion
-                        key={user.almId}
-                        items={[{ title: user.title, content: userTasks }]}
-                        featureId={feature.featureId}
-                        userId={user.userStoryId}
-                        status={user.status.id}
-                        hasWorkFlow={user.hasWorkFlow}
-                        handleClick={() => handleStartWorkflow(user.userStoryId)}
-                      />
-                    );
-                  }
-                }
-                return null;
-              })}
+              <Users featureId={feature.featureId} decrypted={decript} />
             </CardDetails>
           </SwiperSlide>
         ))}

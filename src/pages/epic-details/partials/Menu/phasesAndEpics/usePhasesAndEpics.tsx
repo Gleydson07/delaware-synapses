@@ -1,25 +1,21 @@
 import { cryptography } from "@/utils/cryptography";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-export default function UsePhasesandEpics(token: any, phases: any, epics: any) {
-  const router = useRouter()
+export default function UsePhasesAndEpics(token: any, phases: any, epics: any, onChangeEpic: any) {
+  const router = useRouter();
+
   const decript = cryptography.decrypt(token);
-
   const findPhase = phases.find((phase: any) => phase.phaseId === decript.phaseId);
-  const phaseTitle = findPhase.title;
 
-  const [phaseId, setPhaseId] = useState<string>(findPhase.phaseId);
   let epicFilter: any;
-
   if (decript.epicId) {
     epicFilter = epics.find((epic: any) => epic.epicId === decript.epicId);
   } else if (findPhase?.phaseId) {
     epicFilter = epics.find((epic: any) => epic.phaseId === findPhase.phaseId);
   }
 
-  const [currentEpic, setcurrentEpic] = useState<any>(epicFilter);
-  const epicFindrelatePhase = epics.filter((epic: any) => epic.phaseId === findPhase?.phaseId);
+  const epicFindRelatePhase = epics.filter((epic: any) => epic.phaseId === findPhase?.phaseId);
 
   const handleSwitchPhase = (phase: any) => {
     const newHash = cryptography.encrypt({
@@ -28,7 +24,6 @@ export default function UsePhasesandEpics(token: any, phases: any, epics: any) {
       epicId: 0,
     });
 
-    setPhaseId(phase.phaseId);
     router.push(`${newHash}`);
   }
 
@@ -39,21 +34,19 @@ export default function UsePhasesandEpics(token: any, phases: any, epics: any) {
       epicId: epic.epicId,
     });
 
-    setPhaseId(epic.epicId);
     router.push(`${newHash}`);
   }
 
   useEffect(() => {
-    setcurrentEpic(epicFilter)
+    onChangeEpic(epicFilter);
   }, [epicFilter]);
 
   return {
     findPhase,
-    epicFindrelatePhase,
-    phaseTitle,
+    epicFindRelatePhase,
+    phaseTitle: findPhase.title,
     handleSwitchPhase,
     handleSwitchEpic,
     epicFilter,
-    currentEpic
   }
 }
