@@ -1,5 +1,5 @@
 import Wrapper from "@/components/Wrapper";
-import { CardDetails } from "./styles";
+import { CardDetails, CardProgressWrapper, UserContainerScroll, UsersContainer } from "./styles";
 import CardProgress from "@/components/CardProgress";
 import { onGetColorPhaseStatus } from "@/styles/color";
 import { cryptography } from "@/utils/cryptography";
@@ -63,18 +63,24 @@ export default function Feature({ token, currentEpic }: FeatureProps) {
         {features?.map((feature: any) => (
           <SwiperSlide key={feature.featureId}>
             <CardDetails key={feature.almId}>
-              <CardProgress
-                completeWork={feature.completeWork}
-                workTitle={feature.title}
-                percentComplete={feature.percentComplete}
-                name={feature.status.id}
-                totalWork={feature.totalWork}
-                icon={IconFeatureStatus(
-                  onGetColorPhaseStatus(feature.status.id).secondary
-                )}
-                isFeatureCard={true}
-              />
-              <Users featureId={feature.featureId} decrypted={decript} />
+              <CardProgressWrapper>
+                <CardProgress
+                  completeWork={feature.completeWork}
+                  workTitle={feature.title}
+                  percentComplete={feature.percentComplete}
+                  name={feature.status.id}
+                  totalWork={feature.totalWork}
+                  icon={IconFeatureStatus(
+                    onGetColorPhaseStatus(feature.status.id).secondary
+                  )}
+                  isFeatureCard={true}
+                />
+              </CardProgressWrapper>
+              <UserContainerScroll>
+                <UsersContainer>
+                  <Users featureId={feature.featureId} decrypted={decript} />
+                </UsersContainer>
+              </UserContainerScroll>
             </CardDetails>
           </SwiperSlide>
         ))}

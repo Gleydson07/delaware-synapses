@@ -64,3 +64,11 @@ export const iconPhase = (color: string) => (
     </g>
   </svg>
 );
+
+export const iconArrow = (color: string) => (
+  <svg width="19" height="19" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" xmlSpace="preserve" overflow="hidden">
+    <g transform="translate(-415 -110)">
+      <path d="M431.823 113.82 424.5 125.18 417.177 113.82Z" fill={color} />
+    </g>
+  </svg>
+);

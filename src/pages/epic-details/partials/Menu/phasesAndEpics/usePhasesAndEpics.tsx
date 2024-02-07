@@ -5,21 +5,22 @@ import { useEffect } from "react";
 export default function UsePhasesAndEpics(token: any, phases: any, epics: any, onChangeEpic: any) {
   const router = useRouter();
 
-  const decript = cryptography.decrypt(token);
-  const findPhase = phases.find((phase: any) => phase.phaseId === decript.phaseId);
+  const decrypted = cryptography.decrypt(token);
+  const currentPhase = phases.find((phase: any) => phase.phaseId === decrypted.phaseId);
 
-  let epicFilter: any;
-  if (decript.epicId) {
-    epicFilter = epics.find((epic: any) => epic.epicId === decript.epicId);
-  } else if (findPhase?.phaseId) {
-    epicFilter = epics.find((epic: any) => epic.phaseId === findPhase.phaseId);
+  let currentEpic: any;
+  if (decrypted.epicId) {
+    currentEpic = epics.find((epic: any) => epic.epicId === decrypted.epicId);
+  } else if (currentPhase?.phaseId) {
+    currentEpic = epics.find((epic: any) => epic.phaseId === currentPhase.phaseId);
   }
 
-  const epicFindRelatePhase = epics.filter((epic: any) => epic.phaseId === findPhase?.phaseId);
+  const epicFindRelatePhase = epics.filter((epic: any) => epic.phaseId === currentPhase?.phaseId && epic.epicId !== currentEpic?.epicId);
+  const hasEpicsDifferentOfCurrent = !!epicFindRelatePhase.length;
 
   const handleSwitchPhase = (phase: any) => {
     const newHash = cryptography.encrypt({
-      uuid: decript.uuid,
+      uuid: decrypted.uuid,
       phaseId: phase.phaseId,
       epicId: 0,
     });
@@ -29,7 +30,7 @@ export default function UsePhasesAndEpics(token: any, phases: any, epics: any, o
 
   const handleSwitchEpic = (epic: any) => {
     const newHash = cryptography.encrypt({
-      uuid: decript.uuid,
+      uuid: decrypted.uuid,
       phaseId: epic.phaseId,
       epicId: epic.epicId,
     });
@@ -38,15 +39,16 @@ export default function UsePhasesAndEpics(token: any, phases: any, epics: any, o
   }
 
   useEffect(() => {
-    onChangeEpic(epicFilter);
-  }, [epicFilter]);
+    onChangeEpic(currentEpic);
+  }, [currentEpic]);
 
   return {
-    findPhase,
+    currentPhase,
     epicFindRelatePhase,
-    phaseTitle: findPhase.title,
+    phaseTitle: currentPhase.title,
     handleSwitchPhase,
     handleSwitchEpic,
-    epicFilter,
+    currentEpic,
+    hasEpicsDifferentOfCurrent,
   }
 }

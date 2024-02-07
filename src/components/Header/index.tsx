@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HeaderAvatar, HeaderContainer } from "./styles";
 import Image from "next/image";
 
@@ -9,7 +9,11 @@ import { useRouter } from "next/navigation";
 import { signOut } from "@/api/auth";
 import { useTitleHeader } from "@/hooks/useHeader";
 
-export default function Header() {
+interface HeaderProps {
+  isLoginPage: boolean;
+}
+
+export default function Header({ isLoginPage = true }: HeaderProps) {
   const router = useRouter();
   const { projectName } = useTitleHeader();
 
@@ -35,20 +39,22 @@ export default function Header() {
         {projectName && <p>{projectName}</p>}
       </div>
 
-      <HeaderAvatar $isVisible={isLogoutVisible}>
-        <button onClick={handleIsActiveLogout} className="header-btn">
-          <figure>
-            <Image src={iconUser} alt="icone de usuario" width={55} />
-          </figure>
-        </button>
-
-        <div className="header-popup">
-          <button onClick={handleLogout}>
-            <Image width={25} src={logout} alt="icone de logout" />
-            Logout
+      {!isLoginPage && (
+        <HeaderAvatar $isVisible={isLogoutVisible}>
+          <button onClick={handleIsActiveLogout} className="header-btn">
+            <figure>
+              <Image src={iconUser} alt="icone de usuario" width={55} />
+            </figure>
           </button>
-        </div>
-      </HeaderAvatar>
+
+            <div className="header-popup">
+              <button onClick={handleLogout}>
+                <Image width={25} src={logout} alt="icone de logout" />
+                Logout
+              </button>
+            </div>
+        </HeaderAvatar>
+      )}
     </HeaderContainer>
   );
 }

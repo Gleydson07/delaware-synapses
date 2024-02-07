@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <TitleHeaderProvider>
       <Container $isBackgroundImg>
-        <Header />
+        <Header isLoginPage={isLoginPage}/>
         <GlobalStyle />
         <Component {...pageProps} />
         {isLoginPage ? null : <Copilot />}

@@ -42,14 +42,12 @@ export default function AccordionTask({ task }: AccordionTaskProps) {
   const liRef = useRef<HTMLLIElement>(null);
 
   const handleIsOpenTask = () => {
-
     const newHash = cryptography.encrypt({
       ...decript,
       taskId: !isOpen ? task.taskId : decript.taskId,
     });
 
     setIsOpen((prevIsOpen: boolean) => !prevIsOpen);
-
     router.push(`${newHash}`);
   };
 
