@@ -62,7 +62,12 @@ export const useControlCenter = () => {
       phaseId: phase.phaseId,
       epicId: 0,
     });
-    router.push(`/epic-details/${routeParams}`);
+
+    router.push({
+      pathname: `/epic-details/${routeParams}`
+      },
+      undefined, { shallow: true }
+    );
   };
 
   const handleNavigateToEpic = (epic: EpicProps) => {
@@ -71,7 +76,12 @@ export const useControlCenter = () => {
       phaseId: epic.phaseId,
       epicId: epic.epicId,
     });
-    router.push(`/epic-details/${routeParams}`);
+
+    router.push({
+      pathname: `/epic-details/${routeParams}`
+      },
+      undefined, { shallow: true }
+    );
   };
 
   const handleGoToBack = () => {

@@ -5,7 +5,6 @@ import Status from "../../Status";
 import { cryptography } from "@/utils/cryptography";
 import Image from "next/image";
 import iconUsefullDoc from "@/assets/icons/useful-doc.svg";
-import Tooltip from "@/components/Tooltip";
 interface TaskProps {
   name: "string";
   isAutomated: boolean;
@@ -48,16 +47,20 @@ export default function AccordionTask({ task }: AccordionTaskProps) {
     });
 
     setIsOpen((prevIsOpen: boolean) => !prevIsOpen);
-    router.push(`${newHash}`);
+    router.push({
+      pathname: `/epic-details/${newHash}`
+      },
+      undefined, { shallow: true }
+    );
   };
 
   // faz abrir exatamente na task quie foi clicada
-  useEffect(() => {
-    if (isOpen && liRef.current) {
-      const { top } = liRef.current.getBoundingClientRect();
-      window.scrollTo({ top, behavior: "smooth" });
-    }
-  }, [isOpen]);
+  // useEffect(() => {
+  //   if (isOpen && liRef.current) {
+  //     const { top } = liRef.current.getBoundingClientRect();
+  //     window.scrollTo({ top, behavior: "smooth" });
+  //   }
+  // }, [isOpen, liRef.current]);
 
   return (
     <li ref={liRef} className={isOpen ? "isActive" : ""} onClick={handleIsOpenTask}>

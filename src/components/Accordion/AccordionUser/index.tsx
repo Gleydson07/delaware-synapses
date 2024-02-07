@@ -61,7 +61,12 @@ export default function AccordionUser({ itemTasks, hasWorkFlow, featureId, userI
       featureId: !isOpen ? featureId : decript.featureId,
     });
     setIsOpen((prevIsOpen: boolean) => !prevIsOpen);
-    router.push(`${newHash}`);
+
+    router.push({
+      pathname: `/epic-details/${newHash}`
+      },
+      undefined, { shallow: true }
+    );
   };
 
   return (

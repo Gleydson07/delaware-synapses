@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const WrapperContainer = styled.div`
-  height: auto;
+  height: 100%;
   max-height: calc(100vh - 120px);
   width: 100%;
   border: 2px solid #7f7f7f;
